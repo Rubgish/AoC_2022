@@ -6,6 +6,7 @@
 #include <map>
 #include <sstream>
 #include <cmath>
+#include <regex>
 
 class line
 {
