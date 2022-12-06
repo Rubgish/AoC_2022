@@ -7,6 +7,7 @@
 #include <sstream>
 #include <cmath>
 #include <regex>
+#include <set>
 
 class line
 {
