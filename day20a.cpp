@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     for (auto &&x : input)
     {
         initial_values.push_back(std::make_pair(std::stoi(x), position));
+        position++;
     }
     current_values = initial_values;
 
@@ -20,32 +21,23 @@ int main(int argc, char *argv[])
         {
             auto index = std::distance(current_values.begin(), it);
             auto new_index = (index + it->first);
-            std::cout << "new index: " << new_index << "\n";
-            while (new_index < 0)
+            new_index = ((new_index % ((long)current_values.size()-1)) + ((long)current_values.size()-1)) % ((long)current_values.size()-1);
+            if (new_index == 0)
             {
-                new_index = current_values.size() + new_index - 1;
-                std::cout << "new index loop: " << new_index << "\n";
-            }
-            while (new_index >= current_values.size())
-            {
-                new_index -= current_values.size();
-                std::cout << "new index loop 2: " << new_index << "\n";
+                new_index = (long)current_values.size() - 1;
             }
             current_values.erase(it);
             auto new_it = current_values.begin() + new_index;
             current_values.insert(new_it, x);
-            for (auto &&y : current_values)
-            {
-                std::cout << y.first << ", ";
-            }
-            std::cout << "\n";
         }
     }
-    for (auto &&x : current_values)
-    {
-        std::cout << x.first << "\n";
-    }
-    std::cout << current_values[(1000 % current_values.size())].first << "\n";
-    std::cout << current_values[(2000 % current_values.size())].first << "\n";
-    std::cout << current_values[(3000 % current_values.size())].first << "\n";
+    auto it = std::find(current_values.begin(), current_values.end(), std::make_pair(0,4333));
+    auto index = std::distance(current_values.begin(), it);
+    int val_thing = ((int)index + 1000) % current_values.size();
+    int val_thing_2 = ((int)index + 2000) % current_values.size();
+    int val_thing_3 = ((int)index + 3000) % current_values.size();
+    std::cout << current_values[val_thing].first << "\n";
+    std::cout << current_values[val_thing_2].first << "\n";
+    std::cout << current_values[val_thing_3].first << "\n";
+    std::cout << current_values[val_thing].first + current_values[val_thing_2].first + current_values[val_thing_3].first << "\n";
 }
